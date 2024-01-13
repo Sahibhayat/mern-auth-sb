@@ -4,6 +4,7 @@ import dotenv from "dotenv"
 import userRouter from "./routes/user.routes.js";
 import authRouter from "./routes/auth.routes.js";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -20,6 +21,15 @@ const app = express();
 
 app.use(express.json());
 app.use(cors({origin: "*", credentials: true}));
+app.use(cookieParser());
+
+
+// app.use((req, res, next) => {
+//     res.header('Access-Control-Allow-Origin', '*');
+//     res.header('Access-Control-Allow-Credentials', true);
+//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+//     next();
+//   });
 
 
 app.listen(3000, () => {
