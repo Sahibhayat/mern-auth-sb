@@ -3,6 +3,7 @@ import mongoose from "mongoose"
 import dotenv from "dotenv"
 import userRouter from "./routes/user.routes.js";
 import authRouter from "./routes/auth.routes.js";
+import cors from "cors";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ mongoose.connect(process.env.MONGDB_URI)
 const app = express();
 
 app.use(express.json());
+app.use(cors({origin: "*", credentials: true}));
 
 
 app.listen(3000, () => {
