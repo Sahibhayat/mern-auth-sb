@@ -33,7 +33,8 @@ export const signin = async (req, res, next) => {
 
         const validPassword = bcryptjs.compareSync(password, validUser.password);
         if (!validPassword) {
-            return res.status(401).json({ message: "Wrong credentials" });
+            // return res.status(401).json({ message: "Wrong credentials" });
+            return next(errorHandler(401, "wrong credentials"))
         }
 
         const createdUser = await User.findById(validUser._id).select(
@@ -46,6 +47,6 @@ export const signin = async (req, res, next) => {
             .status(200).json(createdUser)
 
     } catch (error) {
-
+        next(error )
     }
 }

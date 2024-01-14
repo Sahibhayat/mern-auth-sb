@@ -10,17 +10,17 @@ dotenv.config();
 
 
 mongoose.connect(process.env.MONGDB_URI)
-.then(() => {
-    console.log('Connected to mongoDB')
-})
-.catch((err) => {
-    console.log(err)
-})
+    .then(() => {
+        console.log('Connected to mongoDB')
+    })
+    .catch((err) => {
+        console.log(err)
+    })
 
 const app = express();
 
 app.use(express.json());
-app.use(cors({origin: "*", credentials: true}));
+// app.use(cors({origin: "*", credentials: true}));
 app.use(cookieParser());
 
 
@@ -40,7 +40,7 @@ app.use("/api/user", userRouter)
 app.use("/api/auth", authRouter)
 
 app.use((err, req, res, next) => {
-    const statusCode = err.message || 500;
+    const statusCode = err.statusCode || 500;
     const message = err.message || 'Internal Server Error';
     return res.status(statusCode).json({
         success: false,
